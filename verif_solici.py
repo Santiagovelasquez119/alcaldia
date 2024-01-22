@@ -69,7 +69,7 @@ def VERIFICAR_SOLICITUD(query_type:str, soiltype:dict):
 
 
 
-cedcatast = '212-1-001-012-0009-00005-00001-00057'
+cedcatast = '212-2-001-000-0001-00405-0000-00000'
 print(CEDULA_CATASTRAL(cedcatast))
 print(VERIFICAR_SOLICITUD('Industrial', soil_class('Simon Bolivar')))
 

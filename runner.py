@@ -32,7 +32,7 @@ def llenar_formato(nombre:str, cedula:int, celular:int, direccion_notif:str, dir
     import pandas as pd
     articulo = (
         pd.DataFrame(pd.read_excel(r'C:\Users\Fernando.Castrillon\PycharmProjects\pythonProject\Alcaldia\Formatos\Articulos.xlsx')))
-    formato = DocxTemplate(r'C:\Users\Fernando.Castrillon\PycharmProjects\pythonProject\Alcaldia\Formatos\Formato.docx')
+    formato = DocxTemplate(r'/Alcaldia/Formatos/Formato_Comercial.docx')
     arts = ''
     for i in range(len(soil_class(barrio)['Articulos'])):
         var = soil_class(barrio)['Articulos'][i]

@@ -145,7 +145,7 @@ def VERIFICAR_SOLICITUD(nombre: str, cedula: int, celular: int, dir_notif: str, 
         for a in soil_class(barrio_PBOT):
             print(f'{a}: {soil_class(barrio_PBOT)[a]}')
 def llenar_formato(nombre: str, cedula: int, celular: int, direccion_notif:str, direccion: str, barrio: str,
-                   numrad: int, fecharad: datetime.time, cedcatast: str, matr_inm: int, mail: str):
+                   numrad: str, fecharad: datetime.time, cedcatast: str, matr_inm: int, mail: str):
     from docxtpl import DocxTemplate
     import pandas as pd
     articulo = (
@@ -183,23 +183,22 @@ def llenar_formato(nombre: str, cedula: int, celular: int, direccion_notif:str, 
                       f"{fecharad};{cedcatast};{matr_inm};{typo}\n")
     formato.save(f'UsoSueloPredio_{nombre}.docx')
 
-nombre = 'ALVARO BERNARDO MARIN VIECO'
-cedula = '8287909'
+nombre = 'A QUIEN PUEDA INTERESAR_MISERICORIDIA'
+cedula = ''
 dir_notif = ''
-celular = 3108251164
-direccion_lote = 'VEREDA EL NORAL (PRADES I)'
-correo = 'NOLIGASI@GMAIL.COM'
-barrio_PBOT = 'EL NORAL SUBURBANO'
-radicado = 710
-fecha_rad = datetime.date(2024, 1, 24)
-cedcatast = '212-2-001-000-0013-00184-00000-00000'
-matr_inm = '012-0021506'
+celular = ''
+direccion_lote = 'CL 47B N 64-90'
+correo = ''
+barrio_PBOT = 'La Misericordia'
+radicado = '0'
+fecha_rad = datetime.date(2024, 2, 5)
+cedcatast = '212-1-001-022-0012-00030-00000-00000'
+matr_inm = '012-47212'
 query_type = 'Consulta'
 typo = 'UsoSueloPredio'
 
 print(CEDULA_CATASTRAL(cedcatast))
-print(VERIFICAR_SOLICITUD(nombre, cedula, celular, dir_notif, correo, barrio_PBOT, radicado, fecha_rad, cedcatast,
-                            matr_inm, query_type))
+print(VERIFICAR_SOLICITUD(nombre, cedula, celular, dir_notif, correo, barrio_PBOT, radicado, fecha_rad, cedcatast, matr_inm, query_type))
 
 req_cert = str(input('Desea expedir certificado? '))
 if req_cert == 'si':

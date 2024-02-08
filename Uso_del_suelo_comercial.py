@@ -200,19 +200,19 @@ def llenar_formato(nombre:str, cedula:int, celular:int, direccion_notif:str, dir
     formato.save(f'UsoSuelo_{nombre}.docx')
 
 
-nombre = 'SARA ISAZA CAÑAS'
-cedula = 1007471765
-dir_notif = 'CR 64 #48-29'
-celular = 3185566004
-correo = 'SARAISACA03@GMAIL.COM'
-radicado = 227
-fecha_rad = datetime.date(2024, 1, 11)
-cedcatast = '212-1-001-012-0022-00005-00001-00002'
-direccion_predio = 'Cl 52 N 49-32 AP 201'
-matr_inm = '012-0021483'
+nombre = 'JOSE ARAUL ECHEVERRY ECHEVERRY'
+cedula = '15514239'
+dir_notif = 'CR 52 #50-93'
+celular = '3146402593'
+correo = 'JUANITACORTES10@HOTMAIL.COM'
+radicado = '13711'
+fecha_rad = datetime.date(2023, 12, 26)
+cedcatast = '212-1-001-012-0019-00015-00001-00003'
+direccion_predio = 'CR 52 N 50-93 LC'
+matr_inm = '012-69673'
 barrio_PBOT = 'Simon Bolivar'
-servicio = 'TIENDA DE BISUTERÍA'
-razon_social = 'DULCE ESENCIA'
+servicio = 'Comercio al por menor de productos agrícolas para el consumo en establecimientos especializados '
+razon_social = 'LEGUMBRES J.E'
 query_type = 'Comercial'
 
 print(VERIFICAR_SOLICITUD(nombre, cedula, celular, dir_notif, correo, barrio_PBOT, radicado, fecha_rad, cedcatast,

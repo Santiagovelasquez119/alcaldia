@@ -28,7 +28,7 @@ def CEDULA_CATASTRAL(cedcatast:str):
 
     if sector == 1:
         resp_1 = {'Municipio': dic['MUNICIPIO'][municipio], 'Sector': dic['SECTOR'][sector], 'Corregimiento': corregimiento,
-                  'Barrio': dic['BARRIO'][barrio], 'Manzanda-Vereda':manz_vere, 'Predio': predio, 'Edificio':edificio,
+                  'Barrio': dic['BARRIO'][barrio], 'Manzanda-Vereda': manz_vere, 'Predio': predio, 'Edificio':edificio,
                   'Unidad predial': und_pred}
         return resp_1
 
@@ -44,36 +44,63 @@ def llenar_formato(nombre:str, cedula:int, celular:int, numrad:int, fecharad:dat
                    cedcatast:str, matr_inm:int, mail:str, nivel_riesgo:int):
     from docxtpl import DocxTemplate
     formato = DocxTemplate(r'C:\Users\Fernando.Castrillon\PycharmProjects\pythonProject\Alcaldia\Formatos\Formato_riesgo.docx')
-    vereda = CEDULA_CATASTRAL(cedcatast)['Vereda']
-    replace = {'nombre': nombre,
-               'cedula': cedula,
-               'celular': celular,
-               'vereda': vereda,
-               'radicado': numrad,
-               'fecha_rad': fecharad,
-               'mail': mail,
-               'ced_catast': cedcatast,
-               'matr_inm': matr_inm,
-               'tipo_riesgo': RIESGO(nivel_riesgo)}
-    formato.render(replace)
+    if CEDULA_CATASTRAL(cedcatast)['Sector'] == 'Urbano':
+        barrio = CEDULA_CATASTRAL(cedcatast)['Barrio']
+        replace = {'nombre': nombre,
+                   'cedula': cedula,
+                   'celular': celular,
+                   'vereda': barrio,
+                   'radicado': numrad,
+                   'fecha_rad': fecharad,
+                   'mail': mail,
+                   'ced_catast': cedcatast,
+                   'matr_inm': matr_inm,
+                   'tipo_riesgo': RIESGO(nivel_riesgo)}
+        formato.render(replace)
+        with open("Registro_riesgo.csv", "a") as archivo:
+            archivo.write(
+                f"{datetime.date.today()};{nombre};{cedula};{celular};{mail};{barrio};{numrad};{fecharad};{cedcatast};{matr_inm};{RIESGO(nivel_riesgo)}\n")
+        formato.save(f'CertificadoNoRiesgo_{nombre}.docx')
+        print('OK')
+    elif CEDULA_CATASTRAL(cedcatast)['Sector'] == 'Rural':
+        vereda = CEDULA_CATASTRAL(cedcatast)['Vereda']
+        replace = {'nombre': nombre,
+                   'cedula': cedula,
+                   'celular': celular,
+                   'vereda': vereda,
+                   'radicado': numrad,
+                   'fecha_rad': fecharad,
+                   'mail': mail,
+                   'ced_catast': cedcatast,
+                   'matr_inm': matr_inm,
+                   'tipo_riesgo': RIESGO(nivel_riesgo)}
+        formato.render(replace)
+        with open("Registro_riesgo.csv", "a") as archivo:
+            archivo.write(
+                f"{datetime.date.today()};{nombre};{cedula};{celular};{mail};{vereda};{numrad};{fecharad};{cedcatast};{matr_inm};{RIESGO(nivel_riesgo)}\n")
+        formato.save(f'CertificadoNoRiesgo_{nombre}.docx')
+        print('ok')
 
-    with open("Registro_riesgo.csv", "a") as archivo:
-        archivo.write(f"{datetime.date.today()};{nombre};{cedula};{celular};{mail};{vereda};{numrad};{fecharad};{cedcatast};{matr_inm};{RIESGO(nivel_riesgo)}\n")
-    formato.save(f'CertificadoNoRiesgo_{nombre}.docx')
 
+nombre = 'RIESGO_A QUIEN PUEDA INTERESAR_OBRERO'
+cedula = ''
+celular = ''
+correo = ''
+radicado = ''
+fecha_rad = datetime.date(2024, 1, 22)
+cedcatast = '212-1-001-011-0017-00075-00000-00000'
+matr_inm = '012-60694'
 
-nombre = 'MARIA AUXILIO SUAZA'
-cedula = 43381124
-celular = 3165098287
-correo = '-'
-radicado = 520
-fecha_rad = datetime.date(2024, 1, 18)
-cedcatast = '212-2-001-000-0005-00235-00000-00000'
-matr_inm = '012-0063632'
-nivel_riesgo = 0
+# 0: NO SE ENCUENTRA EN ZONA DE RIESGO
+#
+#
+#
+#
+
+nivel_riesgo = 1
 
 print(RIESGO(nivel_riesgo))
-print(CEDULA_CATASTRAL(cedcatast)['Vereda'])
+#print(CEDULA_CATASTRAL(cedcatast)['VEREDA'])
 certificado = input('Desdea generar certificado? ')
 if certificado == 'si':
     llenar_formato(nombre, cedula, celular, radicado, fecha_rad, cedcatast, matr_inm, correo, nivel_riesgo)
